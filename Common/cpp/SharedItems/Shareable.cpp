@@ -338,9 +338,9 @@ void MutableValue::set(jsi::Runtime &rt, const jsi::PropNameID &name, const jsi:
 jsi::Value MutableValue::get(jsi::Runtime &rt, const jsi::PropNameID &name) {
   auto propName = name.utf8(rt);
     
-    if (propName == "Symbol.toPrimitive") {
-        module->errorHandler->raise("Invalid shared value access. Did you forget to use `.value`?");
-    }
+  if (propName == "Symbol.toPrimitive") {
+    module->errorHandler->setError("Invalid shared value access. Did you forget to use `.value`?");
+  }
 
   if (propName == "value") {
     return getValue(rt);
