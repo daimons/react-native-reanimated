@@ -72,8 +72,12 @@ class MutableValueSetterProxy: public jsi::HostObject {
 private:
   friend MutableValue;
   std::shared_ptr<MutableValue> mutableValue;
+  NativeReanimatedModule *module;
 public:
-  MutableValueSetterProxy(std::shared_ptr<MutableValue> mutableValue): mutableValue(std::move(mutableValue)) {}
+  MutableValueSetterProxy(std::shared_ptr<MutableValue> mutableValue, NativeReanimatedModule *module):
+    mutableValue(std::move(mutableValue)) {
+        this->module = module;
+    }
   void set(jsi::Runtime &rt, const jsi::PropNameID &name, const jsi::Value &value);
   jsi::Value get(jsi::Runtime &rt, const jsi::PropNameID &name);
 };
